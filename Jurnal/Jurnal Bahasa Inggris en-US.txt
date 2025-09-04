@@ -7,20 +7,23 @@ Amin Suharjono
 Department of Electrical Engineering
 Semarang State Polytechnic
 Semarang, Indonesia
-amin.suharjono@polines.ac.idImam Zaenal Abidin
+amin.suharjono@polines.ac.id
+Imam Zaenal Abidin
 Department of Electrical Engineering
 Semarang State Polytechnic
 Semarang, Indonesia
-imam.43121115@mhs.polines.ac.idMuhammad Adriano Khairur
+imam.43121115@mhs.polines.ac.id
+Muhammad Adriano Khairur
 Rizky Setyawan
 Department of Electrical Engineering
 Semarang State Polytechnic
 Semarang, Indonesia
-adriano.43121118@mhs.polines.ac.idRoni Apriantoro
+adriano.43121118@mhs.polines.ac.id
+Roni Apriantoro
 Department of Electrical Engineering
 Semarang State Polytechnic
 Semarang, Indonesia
-roni.apriantoro@polines.ac.id
+roni.apriantoro@polines.ac.id
 
 
 Abstract — The increasing demand for industrial wastewater monitoring systems is a strategic challenge in ensuring compliance with environmental regulations and preventing pollution. Most existing systems are unable to integrate multi-protocol communication, layered security mechanisms, and responsive notification features. This research designs and implements an Internet of Things (IoT)-based liquid waste monitoring system with JSON Web Token (JWT), supporting HyperText Transfer Protocol (HTTP) and Message Queueing Telemetry Transport (MQTT) protocols, equipped with AES-128 encryption, HTTP Secure (HTTPS), and web-based and Android interfaces. The methodology used is Agile-Scrum, covering the planning, design, implementation, and testing stages, including black box, security, notification, performance, and User Acceptance Testing (UAT). The results of the study show that the system is capable of monitoring parameters such as discharge, turbidity, pH, ammonia nitrogen, and Chemical Oxygen Demand (COD) in real-time, with a 100% success rate in 16 black box testing scenarios. Performance testing recorded DOMContentLoaded time <250 ms, Android CPU usage <10%, and memory consumption of 20–31 MB. The AES-128 key entropy is equivalent to a theoretical resistance of ±10²¹ years against brute force attacks. Internal notifications and WhatsApp proved effective in providing alerts when parameters exceeded thresholds. UAT showed an acceptance rate of 93.25%, indicating that the system met expectations in terms of interface and user experience. The system is recommended for industries with liquid waste and can be integrated with machine learning in future research for waste quality prediction. 
@@ -36,7 +39,47 @@ Research in the field of water quality monitoring has also been extensively cond
 On the other hand, research related to liquid waste monitoring is also developing rapidly. Febriana & Farros, in their study entitled "Design of a Multipurpose Industrial Internet of Things Board for Liquid Waste Monitoring," designed a multipurpose IoT board with LoRa connectivity to monitor pH, COD, TSS, NH3-N, and water discharge. The data is stored on an SD card and displayed on a Nextion Display, and can be monitored via ThingSpeak. However, this system does not yet have a mobile-based monitoring platform and notification service to notify users of significant changes in sensor values [7]. Salem et al. in their study "An Industrial Cloud-Based IoT System for Real-Time Monitoring and Controlling of Wastewater" also used ESP8266 to monitor the pH and temperature of liquid waste, with data sent to the ThingSpeak platform and equipped with SMS notifications. However, this method has not implemented hashing-based data security [14].
 Based on these studies, it appears that most existing systems are similar to this final project, but still have weaknesses such as limited communication protocol support, lack of data security systems, and absence of notification features. This research offers several advantages, including the application of a message broker for MQTT protocol integration, the use of HTTPS encryption, and JWT hashing to maintain data security and integrity. In addition, the system is equipped with notifications via browser and WhatsApp so that users can immediately detect any anomalies in sensor values. A summary of the literature review can be seen in Table I.
 TABEL I.  Literature Review Summary
-LiteratureInterfaceProtocolNotificationSecurity(Febriana & Farros, 2024)WebsiteHTTP--(Raman & Martin, 2024)WebsiteMQTT--(Salem et al., 2022)WebsiteHTTPSMS-(Bogdan et al., 2023)AndroidHTTPBuilt-In-(Shakdher et al., 2019)WebsiteHTTP--(Shodiq et al., 2021)WebsiteMQTT-JWT, XXTEA EncryptionResearch ProposalWebsite, AndroidHTTP, MQTTBrowser (Built-in), WhatsAppJWT, AES Encryption, HTTPSIII. Research Methodology
+Literature
+Interface
+Protocol
+Notification
+Security
+(Febriana & Farros, 2024)
+Website
+HTTP
+-
+-
+(Raman & Martin, 2024)
+Website
+MQTT
+-
+-
+(Salem et al., 2022)
+Website
+HTTP
+SMS
+-
+(Bogdan et al., 2023)
+Android
+HTTP
+Built-In
+-
+(Shakdher et al., 2019)
+Website
+HTTP
+-
+-
+(Shodiq et al., 2021)
+Website
+MQTT
+-
+JWT, XXTEA Encryption
+Research Proposal
+Website, Android
+HTTP, MQTT
+Browser (Built-in), WhatsApp
+JWT, AES Encryption, HTTPS
+III. Research Methodology
 The research method used in this final project is Agile-Scrum, an iterative software development method that allows requirements and solutions to evolve through team collaboration. Scrum organizes the development process into sprint cycles, where each sprint includes planning, analysis, design, implementation, testing, and review [15].
 The process begins with planning in the form of literature studies and identification of hardware and software requirements, followed by system architecture design, use case diagrams, ERDs, flowcharts, and user interface designs for web and Android applications. The implementation stage involves building APIs using Node.js and Next.js-based application displays, while data is stored in a MySQL database. After the system was developed, a series of tests were conducted, including black box testing, JWT security testing, notifications, performance, and User Acceptance Testing (UAT). The results of these tests formed the basis for evaluation and debugging before the system was released through the Misred-IoT server and WebView-based Android application.
 A. System Architecture
@@ -71,7 +114,8 @@ Based on the results of black box testing of the system, 16 test scenarios were 
 B. Security Testing Results
 Security testing was conducted to assess the resilience of the JWT-based authentication mechanism used by the system. The testing focused on evaluating the theoretical entropy of the secret key and simulating its resilience against brute force attacks. The analysis was conducted based on standard cryptography approaches and computational estimates.
 In the developed system, the secret key for JWT is automatically generated by the server in the form of a 32-character hexadecimal random string. An example of the secret key tested is as follows:
-4b3d6e7c94148b64022cece554fe79a1The technical characteristics of the secret can be described as follows:
+4b3d6e7c94148b64022cece554fe79a1
+The technical characteristics of the secret can be described as follows:
 a. Length (L) = 32 characters
 b. Character set = hexadecimal (0–9, a–f)
 c. Number of unique characters (N) = 16
@@ -100,7 +144,7 @@ Figure 10 shows a comparison diagram indicating that the DOMContentLoaded time a
 Testing on Android devices was conducted using Android Studio software, specifically through the Android Profiler feature using the View Live Telemetry task. However, the results obtained from Android Profiler are limited because the Android application was developed using the Trusted Web Activity (TWA) approach, which essentially only wraps websites on the https://misred-iot.com domain. As a result, all request activities take place within the WebView environment, so Android Profiler can only record and display information related to CPU activity, threads, and memory usage.
 
 Gbr. 11.  Android Profiler test results from Android Studio
-Test results using View Live Telemetry on Android Profiler show that the performance of the application in TWA mode ( ) is efficient and stable. Average CPU usage was below 10%, thread activity recorded 82 active threads including RenderThread, Binder, GCM, and WebView, while memory consumption decreased significantly from ±164 MB to ±120 MB at the 45th second, which was suspected to be due to the garbage collection process. Overall, the application runs smoothly without any significant process spikes. However, since all activities take place within WebView, the profiler can only display CPU, thread, and memory data, without recording network traffic or internal website activity, so end-to-end analysis is not fully achieved.
+Test results using View Live Telemetry on Android Profiler show that the performance of the application in TWA mode is efficient and stable. Average CPU usage was below 10%, thread activity recorded 82 active threads including RenderThread, Binder, GCM, and WebView, while memory consumption decreased significantly from ±164 MB to ±120 MB at the 45th second, which was suspected to be due to the garbage collection process. Overall, the application runs smoothly without any significant process spikes. However, since all activities take place within WebView, the profiler can only display CPU, thread, and memory data, without recording network traffic or internal website activity, so end-to-end analysis is not fully achieved.
 E. User Acceptance Testing (UAT)
 UAT was conducted to assess the level of user acceptance and satisfaction with the interface and functionality of the web-based system. Testing was carried out by distributing a questionnaire containing 34 statements covering UI/UX aspects such as appearance, navigation, information, performance, responsiveness, convenience, and feature functionality. Respondents provided assessments using a 4-point Likert scale [21], and the results were analyzed by calculating the average value for each statement and converting it into a percentage according to the equation used [22].
 
